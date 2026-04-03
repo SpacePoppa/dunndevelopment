@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Smooth scroll for anchor nav links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove blue tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}

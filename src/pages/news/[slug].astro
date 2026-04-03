@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('news', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Layout title={`${post.data.title} | Dunn Development`} description={post.data.description}>
+
+  <!-- Article header -->
+  <section class="bg-gray-50 border-b border-gray-200 py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <a href="/news" class="text-red-600 text-sm font-semibold hover:underline mb-6 inline-block">
+        ← Back to News
+      </a>
+      <div class="flex flex-wrap gap-2 mb-5">
+        {post.data.tags.map((tag) => (
+          <span class="bg-gray-200 text-gray-600 text-xs font-semibold px-3 py-1 rounded-full">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+        {post.data.title}
+      </h1>
+      <p class="text-gray-500 text-sm">
+        {formatDate(post.data.publishDate)} &middot; {post.data.author}
+      </p>
+    </div>
+  </section>
+
+  <!-- Article body -->
+  <section class="py-16 px-6 bg-white">
+    <div class="max-w-3xl mx-auto">
+      <div class="prose prose-lg prose-gray max-w-none
+        prose-headings:font-extrabold prose-headings:text-gray-900
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-p:text-gray-600 prose-p:leading-relaxed
+        prose-li:text-gray-600
+        prose-strong:text-gray-900
+        prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline">
+        <Content />
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 bg-gray-50 border border-gray-200 rounded-2xl p-10 text-center">
+        <h3 class="text-2xl font-extrabold text-gray-900 mb-3">Ready to Start Your Project?</h3>
+        <p class="text-gray-600 mb-6">Talk to the Dunn Development team about your next commercial build.</p>
+        <a href="/#contact"
+          class="inline-block bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors">
+          Contact Us →
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,426 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { config } from '../config/client.config';
+
+const yearsInBusiness = new Date().getFullYear() - config.business.founded;
+---
+
+<Layout>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="relative min-h-[680px] flex flex-col justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/dunn-development.webp')"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-28 w-full">
+      <div class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        Licensed · FL &amp; Louisiana · Commercial Projects Only
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight mb-8 max-w-4xl text-white">
+        Construction Management<br />
+        <span class="text-red-600">Dunn Right.</span>
+      </h1>
+
+      <p class="text-xl text-white/80 max-w-2xl mb-12 leading-relaxed">
+        Full-service commercial construction firm delivering 100+ projects across Florida since 2014 — airports, offices, industrial facilities, and everything in between.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#contact"
+          class="bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors text-center">
+          Start a Project
+        </a>
+        <a href={`tel:${config.business.phone}`}
+          class="border border-white/40 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors text-center backdrop-blur-sm">
+          {config.business.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      {config.stats.map(({ value, label }) => (
+        <div>
+          <div class="text-4xl font-extrabold text-gray-900">{value}</div>
+          <div class="text-gray-500 text-sm mt-1">{label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CLIENT LOGOS ──────────────────────────────────────────── -->
+  <section class="bg-gray-50 border-b border-gray-200 py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-gray-400 text-xs font-semibold uppercase tracking-widest text-center mb-8">
+        Trusted by Fortune 500 tenants &amp; institutional owners
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        {config.clients.map((client) => (
+          <span class="text-gray-500 font-semibold text-lg hover:text-gray-800 transition-colors">
+            {client}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ──────────────────────────────────────────────── -->
+  <section id="services" class="py-28 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">What We Do</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-5">
+          Full-Cycle Commercial Construction
+        </h2>
+        <p class="text-gray-600 text-lg max-w-2xl">
+          From raw land to ribbon cutting — one accountable team for every phase and every project type.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {config.services.map((service) => (
+          <div class="group bg-white border border-gray-200 rounded-2xl p-8 hover:border-red-300 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-5">{service.icon}</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">{service.name}</h3>
+            <p class="text-gray-600 leading-relaxed text-sm">{service.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PORTFOLIO ─────────────────────────────────────────────── -->
+  <section id="portfolio" class="py-28 px-6 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">Our Work</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-5">
+          Delivered Projects
+        </h2>
+        <p class="text-gray-600 text-lg max-w-2xl">
+          Airport terminals, commercial offices, industrial facilities, and biomedical build-outs across South Florida and Louisiana.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {config.portfolio.map(({ badge, client, scope, location }) => (
+          <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+            <div class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-3 py-1 rounded-full mb-5">
+              {badge}
+            </div>
+            <div class="text-gray-900 font-bold text-lg mb-2">{client}</div>
+            <div class="text-gray-600 text-sm mb-4">{scope}</div>
+            <div class="flex items-center gap-1.5 text-gray-400 text-xs">
+              <span>📍</span>
+              <span>{location}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CLIENT TECHNOLOGY ─────────────────────────────────────── -->
+  <section id="automation" class="py-28 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+        <div>
+          <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">
+            Client Experience
+          </p>
+          <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+            Your Project. Always<br />
+            <span class="text-red-600">Visible. Always Current.</span>
+          </h2>
+          <p class="text-gray-600 text-lg leading-relaxed mb-8">
+            We give owners and stakeholders real-time visibility into their project without them having to ask. Automated progress reports, milestone alerts, budget tracking, and document access — delivered directly, on schedule, every time.
+          </p>
+          <div class="space-y-4 mb-10">
+            {[
+              "Weekly progress reports delivered automatically — no chasing your PM",
+              "Instant alerts when milestones hit or schedules shift",
+              "Budget and change order updates in real time — no surprises",
+              "All project documents — RFIs, submittals, change orders — in one place",
+            ].map((point) => (
+              <div class="flex gap-3 items-start">
+                <span class="text-red-600 text-lg mt-0.5 shrink-0">✓</span>
+                <span class="text-gray-700">{point}</span>
+              </div>
+            ))}
+          </div>
+          <a href="#contact"
+            class="inline-block bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors">
+            Start a Project →
+          </a>
+        </div>
+
+        <div class="grid gap-4">
+          {[
+            {
+              name: "Automated Owner Reporting",
+              description: "Weekly project status reports delivered directly to ownership and stakeholders — schedule, budget, open items — without a single email written by your PM.",
+            },
+            {
+              name: "Milestone & Phase Alerts",
+              description: "The moment a critical phase completes or a key date shifts, you're notified automatically. No waiting for the next site meeting to find out where things stand.",
+            },
+            {
+              name: "Real-Time Budget Tracking",
+              description: "Live cost visibility with change order notifications the moment they're issued. You always know your exposure before it becomes a problem.",
+            },
+            {
+              name: "Document & RFI Access",
+              description: "All project documents — drawings, submittals, RFIs, change orders, and specs — organized and accessible in one place throughout the life of the project.",
+            },
+            {
+              name: "Subcontractor Coordination Updates",
+              description: "Know which trades are on site, what's scheduled for the week ahead, and who's responsible for open items — without calling the superintendent.",
+            },
+            {
+              name: "Project Kickoff Communication",
+              description: "From contract execution through Notice to Proceed, every stakeholder is onboarded with the right information on day one — automatically.",
+            },
+          ].map((svc) => (
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-red-300 transition-colors">
+              <div class="text-gray-900 font-semibold mb-2">{svc.name}</div>
+              <div class="text-gray-600 text-sm leading-relaxed">{svc.description}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY DUNN ───────────────────────────────────────────────── -->
+  <section class="py-28 px-6 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">Our Approach</p>
+          <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-8">
+            One Team. One Accountable Partner.
+          </h2>
+
+          <!-- Mission pillars -->
+          <div class="grid grid-cols-2 gap-4 mb-10">
+            {config.business.mission.map((step) => (
+              <div class="bg-white border border-gray-200 rounded-xl p-5 text-center">
+                <div class="text-red-600 font-extrabold text-sm tracking-widest">{step}</div>
+              </div>
+            ))}
+          </div>
+
+          <div class="space-y-6">
+            {[
+              {
+                title: "Senior PMs on Every Project",
+                body: "No bait-and-switch. The principals and project managers you meet in the proposal phase are the ones running your job.",
+              },
+              {
+                title: "OSHA-Compliant Safety Programs",
+                body: "Safety is a core competency — not an afterthought. Our safety programs comply with local, state, and federal regulations on every jobsite.",
+              },
+              {
+                title: "Transparent Budget Management",
+                body: "Open-book cost reporting and monthly owner's meetings. You always know where your money is — before it's spent.",
+              },
+              {
+                title: "Project Takeover Capability",
+                body: "If your current GC has gone sideways, we step in. Site assessment, plan review, sub evaluation, and a path to completion.",
+              },
+            ].map(({ title, body }) => (
+              <div class="flex gap-5">
+                <div class="w-10 h-10 bg-red-50 border border-red-200 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+                  <span class="text-red-600 font-bold text-lg">→</span>
+                </div>
+                <div>
+                  <div class="text-gray-900 font-semibold mb-1">{title}</div>
+                  <div class="text-gray-600 text-sm leading-relaxed">{body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Years callout -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-sm">
+          <div class="text-8xl font-extrabold text-red-600 mb-3">{yearsInBusiness}</div>
+          <div class="text-gray-900 text-2xl font-bold mb-4">Years of Commercial Excellence</div>
+          <div class="text-gray-600 mb-8">
+            Since {config.business.founded}, {config.business.legalName} has delivered 100+ commercial projects and created 1,000+ jobs across Florida — on time, on budget, every time.
+          </div>
+          <a href="#contact"
+            class="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition-colors">
+            Let's Talk About Your Project
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SUBCONTRACTORS ─────────────────────────────────────────── -->
+  <section class="py-20 px-6 bg-white border-y border-gray-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">Trade Partners</p>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-5">
+            Work With Us as a Subcontractor
+          </h2>
+          <p class="text-gray-600 text-lg leading-relaxed mb-6">
+            All subcontractors and suppliers are vital to our company's success — we respect and appreciate their contributions. If you're a licensed trade contractor serving South Florida, we want to hear from you.
+          </p>
+          <ul class="space-y-3 text-gray-700 text-sm mb-8">
+            {[
+              "Submit your trade specialty and counties serviced",
+              "Provide license qualifier and years in business",
+              "Complete a Contractor Agreement before your first project",
+              "Get added to our active bid list",
+            ].map((item) => (
+              <li class="flex gap-3 items-start">
+                <span class="text-red-600 font-bold mt-0.5">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a href="/subcontractor"
+            class="inline-block bg-gray-900 text-white px-7 py-3 rounded-xl font-bold hover:bg-gray-700 transition-colors">
+            Apply as a Subcontractor →
+          </a>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-10">
+          <div class="text-gray-900 font-bold text-lg mb-6">We work with trades including:</div>
+          <div class="grid grid-cols-2 gap-3 text-sm text-gray-700">
+            {[
+              "General Construction", "Electrical", "Mechanical / HVAC", "Plumbing",
+              "Drywall & Framing", "Flooring", "Painting", "Landscaping",
+              "Underground Utilities", "Concrete & Masonry",
+            ].map((trade) => (
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>{trade}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LICENSES ───────────────────────────────────────────────── -->
+  <section id="licenses" class="py-20 px-6 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-3">Licensed &amp; Verified</h2>
+        <p class="text-gray-600">Verify our contractor licenses directly with the issuing state boards.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <a href={config.business.licenses.florida.verifyUrl}
+          target="_blank" rel="noopener"
+          class="group bg-white border border-gray-200 rounded-2xl p-8 hover:border-red-300 hover:shadow-md transition-all text-center">
+          <div class="text-4xl mb-4">🌴</div>
+          <div class="text-gray-900 font-bold text-lg mb-2">Florida</div>
+          <div class="text-gray-500 text-sm mb-4">Licensed General Contractor</div>
+          <div class="text-red-600 text-sm font-semibold group-hover:underline">
+            Verify FL License →
+          </div>
+        </a>
+        <a href={config.business.licenses.louisiana.verifyUrl}
+          target="_blank" rel="noopener"
+          class="group bg-white border border-gray-200 rounded-2xl p-8 hover:border-red-300 hover:shadow-md transition-all text-center">
+          <div class="text-4xl mb-4">⚜️</div>
+          <div class="text-gray-900 font-bold text-lg mb-2">Louisiana</div>
+          <div class="text-gray-500 text-sm mb-4">Licensed Contractor (LSLBC)</div>
+          <div class="text-red-600 text-sm font-semibold group-hover:underline">
+            Verify LA License →
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ────────────────────────────────────────────────── -->
+  <section id="contact" class="py-28 px-6 bg-white">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">Get In Touch</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-5">
+          Ready to Start Your Project?
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Tell us about your project and we'll respond within one business day.
+        </p>
+      </div>
+
+      <form
+        class="bg-white border border-gray-200 rounded-2xl p-10 space-y-6 shadow-sm"
+        method="POST"
+        action={config.crm.webhookUrl || "#"}
+      >
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+            <input type="text" name="firstName" placeholder="John" required
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+            <input type="text" name="lastName" placeholder="Smith" required
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+            <input type="text" name="company" placeholder="Acme Properties LLC"
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+            <input type="tel" name="phone" placeholder="(305) 555-1234" required
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input type="email" name="email" placeholder="john@company.com" required
+            class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Project Type</label>
+          <select name="projectType"
+            class="w-full bg-white border border-gray-300 text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <option value="">Select project type...</option>
+            {config.services.map((s) => (
+              <option value={s.slug}>{s.name}</option>
+            ))}
+            <option value="operations-automation">Operational Automation</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Project Details</label>
+          <textarea name="message" rows={4}
+            placeholder="Project location, approximate SF, timeline, budget range, and any relevant context..."
+            class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"></textarea>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-red-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors">
+          Submit Project Inquiry
+        </button>
+        <p class="text-xs text-center text-gray-400">
+          We respond within 1 business day. No spam, ever.
+        </p>
+      </form>
+    </div>
+  </section>
+
+</Layout>
