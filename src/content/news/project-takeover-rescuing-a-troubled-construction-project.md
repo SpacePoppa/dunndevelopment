@@ -1,6 +1,6 @@
 ---
 title: "Project Takeover: What Happens When Your GC Fails Mid-Project"
-description: "When a general contractor fails mid-project — through abandonment, insolvency, or chronic underperformance — the owner is left in one of the most stressful situations in commercial real estate. Here's how a project takeover works and what to do first."
+description: "When a general contractor fails mid-project through abandonment, insolvency, or chronic underperformance, the owner is left in one of the most stressful situations in commercial real estate. Here's how a project takeover works and what to do first."
 publishDate: 2026-01-05
 author: Dunn Development
 tags: ["Project Takeover", "Risk Management"]
@@ -8,7 +8,7 @@ tags: ["Project Takeover", "Risk Management"]
 
 It happens more often than the industry likes to admit. A general contractor goes dark. Or they're on site but nothing is moving. Subcontractors stop showing up because they haven't been paid. The schedule has slipped past any reasonable recovery. The owner is left holding a half-built project, a defaulted contract, and a rapidly escalating problem.
 
-This is a project takeover situation — and it requires a specific, methodical response.
+This is a project takeover situation and it requires a specific, methodical response.
 
 ## The First 48 Hours
 
@@ -18,7 +18,7 @@ Before you make any moves:
 
 **Engage legal counsel.** Your options for terminating the GC, making payment claims, and protecting your rights under the existing contract are defined by the contract documents and applicable law. You need an attorney who understands construction contracts involved immediately.
 
-**Document everything.** Photograph and document the current state of the site. Secure all project documents — drawings, specifications, submittals, RFI logs, change order logs, payment records. If the GC has project documents and you lose access, recovery is harder.
+**Document everything.** Photograph and document the current state of the site. Secure all project documents: drawings, specifications, submittals, RFI logs, change order logs, and payment records. If the GC has project documents and you lose access, recovery is harder.
 
 **Notify your lender.** If the project is financed, your construction lender needs to know. Most construction loan agreements have provisions for GC default. Notifying your lender promptly protects your draw schedule.
 
@@ -49,14 +49,14 @@ The real costs of a mid-project takeover include:
 - Remediation of defective or non-conforming work
 - Payment of legitimate sub and supplier claims that the original GC failed to pay
 - Cost premiums to re-engage subs who have demobilized and moved to other projects
-- Extended project duration — additional general conditions, additional carrying costs, delayed occupancy
+- Extended project duration, including additional general conditions, carrying costs, and delayed occupancy
 - New GC overhead and mobilization costs
 
 Understanding and accepting these costs at the outset is essential. Owners who try to compress the takeover budget to minimize the damage often end up compromising the recovery.
 
 ## Selecting a Takeover Contractor
 
-Not every GC has the experience or appetite for project takeover work. It requires a different skill set than a standard new project — comfort with uncertainty, existing subcontractor relationships, the ability to assess quickly and execute under pressure.
+Not every GC has the experience or appetite for project takeover work. It requires a different skill set than a standard new project: comfort with uncertainty, existing subcontractor relationships, and the ability to assess quickly and execute under pressure.
 
 When evaluating a takeover contractor, ask:
 - Have they done this before? Get references specifically from takeover projects.
@@ -64,4 +64,4 @@ When evaluating a takeover contractor, ask:
 - Can they provide a credible budget to complete before you award the contract?
 - What does their takeover process look like in the first 30 days?
 
-Dunn Development has stepped into troubled projects in South Florida and delivered successful completions. If you're facing a project failure, [contact us immediately](/contact) — the sooner a qualified team is assessing the situation, the better your outcome will be.
+Dunn Development has stepped into troubled projects in South Florida and delivered successful completions. If you're facing a project failure, [contact us immediately](/contact). The sooner a qualified team is assessing the situation, the better your outcome will be.

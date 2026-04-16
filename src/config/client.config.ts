@@ -48,11 +48,20 @@ export const config = {
 
   clients: [
     "Southwest Airlines",
+    "TKE",
+    "Schindler",
+    "OEC",
+    "LATAM Cargo",
     "DHL",
     "CBRE",
-    "Schindler",
-    "Cushman & Wakefield",
-    "JLL",
+    "TSA",
+    "Parsons",
+    "TAGB",
+    "FISK Electric",
+    "Wolfberg Alvarez & Partners",
+    "JBT",
+    "emcore",
+    "ARCO Murray",
   ],
 
   services: [
@@ -61,7 +70,7 @@ export const config = {
       name: "Turn Key Builds",
       icon: "🔑",
       description:
-        "We take a project from conception to completion — entirely. Healthcare facilities, correctional institutions, stadiums, arenas, office buildings, and metro stations. One contract, one team, delivered.",
+        "We take a project from conception to completion, entirely. Healthcare facilities, correctional institutions, stadiums, arenas, office buildings, and metro stations. One contract, one team, delivered.",
       featured: true,
     },
     {
@@ -77,7 +86,7 @@ export const config = {
       name: "Interior Fit-Outs",
       icon: "🏢",
       description:
-        "Commercial tenant spaces completed after leasing — offices, restaurants, supermarkets, healthcare clinics, and retail establishments. Advanced building materials and skilled craftspeople on every project.",
+        "Commercial tenant spaces completed after leasing: offices, restaurants, supermarkets, healthcare clinics, and retail establishments. Advanced building materials and skilled craftspeople on every project.",
       featured: true,
     },
     {
@@ -85,7 +94,7 @@ export const config = {
       name: "Site Improvements",
       icon: "🚧",
       description:
-        "Full land modification for commercial properties: underground utilities, excavation, parking infrastructure, lighting, landscaping, hardscaping, and travel ways — aligned to zoning requirements.",
+        "Full land modification for commercial properties: underground utilities, excavation, parking infrastructure, lighting, landscaping, hardscaping, and travel ways, all aligned to zoning requirements.",
       featured: false,
     },
     {
@@ -93,7 +102,7 @@ export const config = {
       name: "Remodels & Renovations",
       icon: "🔨",
       description:
-        "Transforming outdated commercial and industrial buildings with energy audits, eco-friendly materials, and custom design updates — without blowing the budget.",
+        "Transforming outdated commercial and industrial buildings with energy audits, eco-friendly materials, and custom design updates, without blowing the budget.",
       featured: false,
     },
     {
@@ -155,27 +164,27 @@ export const config = {
     {
       name: "Subcontractor Intake & Pre-Qualification",
       description:
-        "Automated application pipeline that collects trade credentials, insurance certificates, and references — then flags expiring docs before they become a compliance problem.",
+        "Automated application pipeline that collects trade credentials, insurance certificates, and references, then flags expiring docs before they become a compliance problem.",
     },
     {
       name: "Bid Management & RFQ Tracking",
       description:
-        "Automated RFQ distribution to your sub list, deadline reminders, and bid-leveling summaries delivered to your inbox — no more tracking bid returns in email threads.",
+        "Automated RFQ distribution to your sub list, deadline reminders, and bid-leveling summaries delivered to your inbox. No more tracking bid returns in email threads.",
     },
     {
       name: "Owner Progress Reporting",
       description:
-        "Weekly automated project status reports sent to owners and stakeholders. Schedule, budget variance, and open RFIs — formatted and sent without a PM writing a single email.",
+        "Weekly automated project status reports sent to owners and stakeholders. Schedule, budget variance, and open RFIs, formatted and sent without a PM writing a single email.",
     },
     {
       name: "Compliance & Insurance Monitoring",
       description:
-        "Continuous monitoring of sub insurance expirations, license renewals, and OSHA certifications. Auto-alerts 60 and 30 days out — before your project is exposed.",
+        "Continuous monitoring of sub insurance expirations, license renewals, and OSHA certifications. Auto-alerts 60 and 30 days out, before your project is exposed.",
     },
     {
       name: "Project Kickoff Workflow",
       description:
-        "Trigger a structured onboarding sequence the moment a contract executes: NTP issuance, sub setup packets, document folder creation, schedule distribution — all automated.",
+        "Trigger a structured onboarding sequence the moment a contract executes: NTP issuance, sub setup packets, document folder creation, and schedule distribution, all automated.",
     },
     {
       name: "Change Order Pipeline",
@@ -209,7 +218,7 @@ export const config = {
   ],
 
   seo: {
-    defaultTitle: "Dunn Development | Commercial Construction Management — South Florida",
+    defaultTitle: "Dunn Development | Commercial Construction Management in South Florida",
     defaultDescription:
       "Full-service commercial construction firm in Miami, FL. 100+ projects delivered since 2014. Turn key builds, ground-up construction, interior fit-outs, and project turnarounds across Florida.",
     siteUrl: "https://dunndevelopment.net",

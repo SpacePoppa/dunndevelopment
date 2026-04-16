@@ -19,12 +19,12 @@ The biggest mistake landlords make is executing a lease with a TI allowance and 
 Before you sign:
 - Get preliminary construction drawings reviewed by a qualified GC or CM
 - Establish a preliminary budget and contingency
-- Define who manages the buildout — landlord-controlled or tenant-controlled
+- Define who manages the buildout: landlord-controlled or tenant-controlled
 - Specify approved finishes and mechanical system standards
 
 ## Landlord-Controlled vs. Tenant-Controlled Buildouts
 
-**Landlord-controlled:** The landlord hires the contractor, manages the process, and delivers a finished space. The TI allowance is the landlord's budget. This approach gives landlords maximum control over quality, timeline, and base building compliance — but also maximum responsibility if things go sideways.
+**Landlord-controlled:** The landlord hires the contractor, manages the process, and delivers a finished space. The TI allowance is the landlord's budget. This approach gives landlords maximum control over quality, timeline, and base building compliance, but also maximum responsibility if things go sideways.
 
 **Tenant-controlled:** The tenant hires their own contractor using the TI allowance. The landlord reviews and approves plans and inspects work at key milestones. This is common with larger, sophisticated tenants (national retailers, healthcare operators) who have established build standards.
 
@@ -42,11 +42,11 @@ Require your contractor to provide a full budget breakdown before work begins an
 
 ## Common Pitfalls and How to Avoid Them
 
-**Scope creep:** Tenants add finishes and features during construction that weren't in the original scope. Establish a formal change order process and hold the line — changes approved in writing only.
+**Scope creep:** Tenants add finishes and features during construction that weren't in the original scope. Establish a formal change order process and hold the line, with changes approved in writing only.
 
 **Permitting delays:** In South Florida, permitting timelines vary significantly by municipality. Factor realistic permit timelines into your schedule and start the permitting process as early as possible.
 
-**Mechanical conflicts:** New tenant spaces often require modifications to HVAC, electrical, and plumbing that affect base building systems. Have these reviewed early — discovering conflicts during construction is expensive.
+**Mechanical conflicts:** New tenant spaces often require modifications to HVAC, electrical, and plumbing that affect base building systems. Have these reviewed early, as discovering conflicts during construction is expensive.
 
 **Punch list delays:** Tenants are eager to open and often accept spaces with significant unresolved punch list items. This becomes leverage you lose. Require a completed punch list before issuing the final TI disbursement.
 

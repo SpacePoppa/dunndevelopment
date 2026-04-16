@@ -24,7 +24,7 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
       </h1>
 
       <p class="text-xl text-white/80 max-w-2xl mb-12 leading-relaxed">
-        Full-service commercial construction firm delivering 100+ projects across Florida since 2014 — airports, offices, industrial facilities, and everything in between.
+        Full-service commercial construction firm delivering 100+ projects across Florida since 2014: airports, offices, industrial facilities, and everything in between.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4">
@@ -52,22 +52,6 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
     </div>
   </section>
 
-  <!-- ── CLIENT LOGOS ──────────────────────────────────────────── -->
-  <section class="bg-gray-50 border-b border-gray-200 py-12 px-6">
-    <div class="max-w-7xl mx-auto">
-      <p class="text-gray-400 text-xs font-semibold uppercase tracking-widest text-center mb-8">
-        Trusted by Fortune 500 tenants &amp; institutional owners
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-        {config.clients.map((client) => (
-          <span class="text-gray-500 font-semibold text-lg hover:text-gray-800 transition-colors">
-            {client}
-          </span>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- ── SERVICES ──────────────────────────────────────────────── -->
   <section id="services" class="py-28 px-6 bg-white">
     <div class="max-w-7xl mx-auto">
@@ -77,7 +61,7 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
           Full-Cycle Commercial Construction
         </h2>
         <p class="text-gray-600 text-lg max-w-2xl">
-          From raw land to ribbon cutting — one accountable team for every phase and every project type.
+          From raw land to ribbon cutting, one accountable team for every phase and every project type.
         </p>
       </div>
 
@@ -124,73 +108,118 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
     </div>
   </section>
 
+  <!-- ── CLIENT LOGOS ──────────────────────────────────────────── -->
+  <section class="bg-gray-50 border-b border-gray-200 py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-gray-500 text-xs font-semibold uppercase tracking-widest text-center mb-8">
+        Trusted by Fortune 500 tenants &amp; institutional owners
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        {config.clients.map((client) => (
+          <span class="text-gray-500 font-semibold text-lg hover:text-gray-800 transition-colors">
+            {client}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ── CLIENT TECHNOLOGY ─────────────────────────────────────── -->
   <section id="automation" class="py-28 px-6 bg-white">
     <div class="max-w-7xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
-        <div>
-          <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">
-            Client Experience
-          </p>
-          <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-            Your Project. Always<br />
-            <span class="text-red-600">Visible. Always Current.</span>
-          </h2>
-          <p class="text-gray-600 text-lg leading-relaxed mb-8">
-            We give owners and stakeholders real-time visibility into their project without them having to ask. Automated progress reports, milestone alerts, budget tracking, and document access — delivered directly, on schedule, every time.
-          </p>
-          <div class="space-y-4 mb-10">
-            {[
-              "Weekly progress reports delivered automatically — no chasing your PM",
-              "Instant alerts when milestones hit or schedules shift",
-              "Budget and change order updates in real time — no surprises",
-              "All project documents — RFIs, submittals, change orders — in one place",
-            ].map((point) => (
-              <div class="flex gap-3 items-start">
-                <span class="text-red-600 text-lg mt-0.5 shrink-0">✓</span>
-                <span class="text-gray-700">{point}</span>
-              </div>
-            ))}
-          </div>
-          <a href="#contact"
-            class="inline-block bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors">
-            Start a Project →
-          </a>
-        </div>
 
-        <div class="grid gap-4">
+      <!-- Intro -->
+      <div class="max-w-3xl mb-16">
+        <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">
+          Technology & Transparency
+        </p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+          The Nationals Use AI.<br />
+          <span class="text-red-600">So Do We.</span>
+        </h2>
+        <p class="text-gray-600 text-lg leading-relaxed">
+          South Florida's largest contractors are deploying AI tools, real-time site monitoring, and automated reporting on every project. Dunn Development brings the same operational technology to your build, without the national firm overhead. Your project stays visible, your team stays aligned, and nothing falls through the cracks.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+
+        <!-- Left: capability bullets -->
+        <div class="space-y-8">
           {[
             {
-              name: "Automated Owner Reporting",
-              description: "Weekly project status reports delivered directly to ownership and stakeholders — schedule, budget, open items — without a single email written by your PM.",
+              icon: "📡",
+              title: "Real-Time Site Visibility",
+              body: "360-degree site documentation and continuous progress capture means you always know what's happening on your job, without being on site. Wiring, framing, MEP rough-ins confirmed before walls close.",
             },
             {
-              name: "Milestone & Phase Alerts",
-              description: "The moment a critical phase completes or a key date shifts, you're notified automatically. No waiting for the next site meeting to find out where things stand.",
+              icon: "📋",
+              title: "Automated Submittal Processing",
+              body: "AI-assisted submittal creation cuts a process that once took days down to hours. Spec books scanned, submittals generated, reviews tracked, without your PM buried in paperwork.",
             },
             {
-              name: "Real-Time Budget Tracking",
-              description: "Live cost visibility with change order notifications the moment they're issued. You always know your exposure before it becomes a problem.",
+              icon: "📊",
+              title: "Owner Reporting on Autopilot",
+              body: "Weekly project status delivered directly to ownership and stakeholders: schedule, budget variance, open RFIs, and upcoming milestones. Formatted and sent automatically, every time.",
             },
             {
-              name: "Document & RFI Access",
-              description: "All project documents — drawings, submittals, RFIs, change orders, and specs — organized and accessible in one place throughout the life of the project.",
+              icon: "⚡",
+              title: "Instant Job-Site Answers",
+              body: "Questions that used to take 20 minutes to resolve, such as spec conflicts, finish selections, and scope clarifications, answered in under a minute. Less downtime, more building.",
             },
             {
-              name: "Subcontractor Coordination Updates",
-              description: "Know which trades are on site, what's scheduled for the week ahead, and who's responsible for open items — without calling the superintendent.",
+              icon: "🔔",
+              title: "Milestone & Change Order Alerts",
+              body: "The moment a critical phase completes or a change event is issued, you're notified. No surprises at the end of the month. No disputes over undocumented T&M.",
             },
             {
-              name: "Project Kickoff Communication",
-              description: "From contract execution through Notice to Proceed, every stakeholder is onboarded with the right information on day one — automatically.",
+              icon: "📁",
+              title: "Centralized Project Documentation",
+              body: "Every drawing, submittal, RFI, change order, and inspection report, organized, searchable, and accessible throughout the life of the project and beyond closeout.",
             },
-          ].map((svc) => (
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-red-300 transition-colors">
-              <div class="text-gray-900 font-semibold mb-2">{svc.name}</div>
-              <div class="text-gray-600 text-sm leading-relaxed">{svc.description}</div>
+          ].map(({ icon, title, body }) => (
+            <div class="flex gap-5">
+              <div class="w-12 h-12 bg-red-50 border border-red-100 rounded-xl flex items-center justify-center shrink-0 text-2xl">
+                {icon}
+              </div>
+              <div>
+                <div class="text-gray-900 font-bold mb-1">{title}</div>
+                <div class="text-gray-600 text-sm leading-relaxed">{body}</div>
+              </div>
             </div>
           ))}
         </div>
+
+        <!-- Right: stat callouts + CTA -->
+        <div class="flex flex-col gap-6">
+          <div class="bg-gray-900 text-white rounded-2xl p-10">
+            <p class="text-gray-400 text-sm font-semibold uppercase tracking-widest mb-6">Why it matters now</p>
+            <div class="space-y-8">
+              {[
+                { stat: "41%", label: "of the construction workforce is expected to retire by 2031. Technology bridges the gap." },
+                { stat: "840 hrs", label: "saved annually per project when AI tools handle submittals, RFIs, and reporting." },
+                { stat: "< 1 min", label: "to resolve job-site questions that used to take 20+ minutes and stop work cold." },
+              ].map(({ stat, label }) => (
+                <div class="flex gap-5 items-start">
+                  <div class="text-red-500 font-extrabold text-3xl shrink-0 leading-none">{stat}</div>
+                  <div class="text-gray-300 text-sm leading-relaxed">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="bg-red-600 rounded-2xl p-8 text-white">
+            <h3 class="text-xl font-extrabold mb-3">Built for owners who expect more</h3>
+            <p class="text-red-100 text-sm leading-relaxed mb-6">
+              You shouldn't have to chase your contractor for updates. Talk to us about how we run projects and what that means for yours.
+            </p>
+            <a href="#contact"
+              class="inline-block bg-white text-red-600 px-6 py-3 rounded-lg font-bold hover:bg-red-50 transition-colors">
+              Start a Project →
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -222,11 +251,11 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
               },
               {
                 title: "OSHA-Compliant Safety Programs",
-                body: "Safety is a core competency — not an afterthought. Our safety programs comply with local, state, and federal regulations on every jobsite.",
+                body: "Safety is a core competency, not an afterthought. Our safety programs comply with local, state, and federal regulations on every jobsite.",
               },
               {
                 title: "Transparent Budget Management",
-                body: "Open-book cost reporting and monthly owner's meetings. You always know where your money is — before it's spent.",
+                body: "Open-book cost reporting and monthly owner's meetings. You always know where your money is before it's spent.",
               },
               {
                 title: "Project Takeover Capability",
@@ -251,7 +280,7 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
           <div class="text-8xl font-extrabold text-red-600 mb-3">{yearsInBusiness}</div>
           <div class="text-gray-900 text-2xl font-bold mb-4">Years of Commercial Excellence</div>
           <div class="text-gray-600 mb-8">
-            Since {config.business.founded}, {config.business.legalName} has delivered 100+ commercial projects and created 1,000+ jobs across Florida — on time, on budget, every time.
+            Since {config.business.founded}, {config.business.legalName} has delivered 100+ commercial projects and created 1,000+ jobs across Florida, on time, on budget, every time.
           </div>
           <a href="#contact"
             class="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition-colors">
@@ -272,7 +301,7 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
             Work With Us as a Subcontractor
           </h2>
           <p class="text-gray-600 text-lg leading-relaxed mb-6">
-            All subcontractors and suppliers are vital to our company's success — we respect and appreciate their contributions. If you're a licensed trade contractor serving South Florida, we want to hear from you.
+            All subcontractors and suppliers are vital to our company's success. We respect and appreciate their contributions. If you're a licensed trade contractor serving South Florida, we want to hear from you.
           </p>
           <ul class="space-y-3 text-gray-700 text-sm mb-8">
             {[
@@ -363,39 +392,39 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
       >
         <div class="grid sm:grid-cols-2 gap-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-            <input type="text" name="firstName" placeholder="John" required
-              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+            <input id="firstName" type="text" name="firstName" placeholder="John" required
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-            <input type="text" name="lastName" placeholder="Smith" required
-              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+            <input id="lastName" type="text" name="lastName" placeholder="Smith" required
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
           </div>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
-            <input type="text" name="company" placeholder="Acme Properties LLC"
-              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+            <input id="company" type="text" name="company" placeholder="Acme Properties LLC"
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-            <input type="tel" name="phone" placeholder="(305) 555-1234" required
-              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+            <input id="phone" type="tel" name="phone" placeholder="(305) 555-1234" required
+              class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
           </div>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-          <input type="email" name="email" placeholder="john@company.com" required
-            class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input id="email" type="email" name="email" placeholder="john@company.com" required
+            class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Project Type</label>
-          <select name="projectType"
+          <label for="projectType" class="block text-sm font-medium text-gray-700 mb-2">Project Type</label>
+          <select id="projectType" name="projectType"
             class="w-full bg-white border border-gray-300 text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
             <option value="">Select project type...</option>
             {config.services.map((s) => (
@@ -406,10 +435,10 @@ const yearsInBusiness = new Date().getFullYear() - config.business.founded;
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Project Details</label>
-          <textarea name="message" rows={4}
+          <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Project Details</label>
+          <textarea id="message" name="message" rows={4}
             placeholder="Project location, approximate SF, timeline, budget range, and any relevant context..."
-            class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"></textarea>
+            class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"></textarea>
         </div>
 
         <button type="submit"
