@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { config } from '../config/client.config';
+---
+
+<Layout
+  title="Subcontractor Application | Dunn Development"
+  description="Apply to work with Dunn Development as a subcontractor or supplier. Complete our contractor agreement to get on the active bid list for South Florida commercial construction projects."
+>
+
+  <!-- Page header -->
+  <section class="bg-gray-50 border-b border-gray-200 py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-red-600 text-sm font-semibold uppercase tracking-widest mb-3">Trade Partners</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-5">
+        Subcontractor Application
+      </h1>
+      <p class="text-gray-600 text-lg leading-relaxed">
+        All subcontractors and suppliers are vital to our success. We respect and appreciate your contributions.
+        Complete this form to get on our active bid list for South Florida and Louisiana commercial projects.
+      </p>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-3xl mx-auto">
+
+      <form
+        class="space-y-10"
+        method="POST"
+        action={config.crm.webhookUrl || "#"}
+      >
+
+        <!-- ── PERSONAL CONTACT ──────────────────────────────── -->
+        <fieldset>
+          <legend class="text-lg font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200 w-full">
+            Contact Information
+          </legend>
+          <div class="space-y-6">
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
+                  First Name <span class="text-red-600">*</span>
+                </label>
+                <input id="firstName" type="text" name="firstName" placeholder="John" required
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+              <div>
+                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
+                  Last Name <span class="text-red-600">*</span>
+                </label>
+                <input id="lastName" type="text" name="lastName" placeholder="Smith" required
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                  Phone Number <span class="text-red-600">*</span>
+                </label>
+                <input id="phone" type="tel" name="phone" placeholder="(954) 555-1234" required
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                  Email <span class="text-red-600">*</span>
+                </label>
+                <input id="email" type="email" name="email" placeholder="john@company.com" required
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+            </div>
+
+            <div>
+              <fieldset>
+                <legend class="block text-sm font-medium text-gray-700 mb-3">
+                  Preferred Contact Method <span class="text-red-600">*</span>
+                </legend>
+                <div class="flex gap-6">
+                  <label for="contactPhone" class="flex items-center gap-3 cursor-pointer">
+                    <input id="contactPhone" type="radio" name="preferredContact" value="Phone" required
+                      class="w-4 h-4 accent-red-600" />
+                    <span class="text-gray-700 font-medium">Phone</span>
+                  </label>
+                  <label for="contactEmail" class="flex items-center gap-3 cursor-pointer">
+                    <input id="contactEmail" type="radio" name="preferredContact" value="Email"
+                      class="w-4 h-4 accent-red-600" />
+                    <span class="text-gray-700 font-medium">Email</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- ── TRADE INFO ─────────────────────────────────────── -->
+        <fieldset>
+          <legend class="text-lg font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200 w-full">
+            Trade Information
+          </legend>
+          <div class="space-y-6">
+
+            <div>
+              <label for="tradeSpecialty" class="block text-sm font-medium text-gray-700 mb-2">Trade Specialty</label>
+              <input id="tradeSpecialty" type="text" name="tradeSpecialty" placeholder="e.g. Electrical, HVAC, Plumbing, Drywall..."
+                class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            </div>
+
+            <div>
+              <label for="yearsExperience" class="block text-sm font-medium text-gray-700 mb-4">
+                Years of Experience: <span id="expDisplay" class="text-red-600 font-bold">0</span>
+              </label>
+              <input
+                id="yearsExperience"
+                type="range" name="yearsExperience" min="0" max="25" value="0"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                oninput="document.getElementById('expDisplay').textContent = this.value"
+              />
+              <div class="flex justify-between text-xs text-gray-500 mt-1">
+                <span>0</span><span>25+</span>
+              </div>
+            </div>
+
+            <div>
+              <label for="countiesServiced" class="block text-sm font-medium text-gray-700 mb-2">Counties Serviced</label>
+              <textarea id="countiesServiced" name="countiesServiced" rows={3}
+                placeholder="e.g. Miami-Dade, Broward, Palm Beach, Monroe..."
+                class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"></textarea>
+              <p class="text-xs text-gray-500 mt-1">Separate counties with commas</p>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- ── COMPANY INFO ────────────────────────────────────── -->
+        <fieldset>
+          <legend class="text-lg font-bold text-gray-900 mb-1 pb-3 border-b border-gray-200 w-full">
+            Company Information
+          </legend>
+          <p class="text-sm text-gray-500 mb-6">All fields in this section are optional.</p>
+          <div class="space-y-6">
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="companyName" class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                <input id="companyName" type="text" name="companyName" placeholder="Acme Electrical LLC"
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+              <div>
+                <label for="companyPhone" class="block text-sm font-medium text-gray-700 mb-2">Company Phone</label>
+                <input id="companyPhone" type="tel" name="companyPhone" placeholder="(954) 555-0000"
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+            </div>
+
+            <div>
+              <label for="companyAddress" class="block text-sm font-medium text-gray-700 mb-2">Company Address</label>
+              <input id="companyAddress" type="text" name="companyAddress" placeholder="123 Main St, Miami, FL 33101"
+                class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="companyWebsite" class="block text-sm font-medium text-gray-700 mb-2">Company Website</label>
+                <input id="companyWebsite" type="url" name="companyWebsite" placeholder="https://yourcompany.com"
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+              </div>
+              <div>
+                <label for="bidEmail" class="block text-sm font-medium text-gray-700 mb-2">Bid Contact Email</label>
+                <input id="bidEmail" type="email" name="bidEmail" placeholder="bids@yourcompany.com"
+                  class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+                <p class="text-xs text-gray-500 mt-1">Where you want bid invitations sent</p>
+              </div>
+            </div>
+
+            <div>
+              <label for="yearsInBusiness" class="block text-sm font-medium text-gray-700 mb-4">
+                Years In Business: <span id="bizDisplay" class="text-red-600 font-bold">0</span>
+              </label>
+              <input
+                id="yearsInBusiness"
+                type="range" name="yearsInBusiness" min="0" max="25" value="0"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                oninput="document.getElementById('bizDisplay').textContent = this.value"
+              />
+              <div class="flex justify-between text-xs text-gray-500 mt-1">
+                <span>0</span><span>25+</span>
+              </div>
+            </div>
+
+            <div>
+              <label for="licenseQualifier" class="block text-sm font-medium text-gray-700 mb-2">Name of License Qualifier</label>
+              <input id="licenseQualifier" type="text" name="licenseQualifier" placeholder="Full name of license qualifier"
+                class="w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" />
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Submit -->
+        <div class="pt-2">
+          <button type="submit"
+            class="w-full bg-red-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors">
+            Submit Application
+          </button>
+          <p class="text-xs text-center text-gray-500 mt-4">
+            By submitting, you agree to complete a Contractor Agreement before your first project.
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+</Layout>

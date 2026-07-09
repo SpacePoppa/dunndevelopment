@@ -1,0 +1,229 @@
+---
+import '../styles/global.css';
+import { config } from '../config/client.config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = config.seo.defaultTitle,
+  description = config.seo.defaultDescription,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <!-- JSON-LD GeneralContractor Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "GeneralContractor",
+      "name": config.business.name,
+      "description": config.business.description,
+      "telephone": config.business.phone,
+      "email": config.business.email,
+      "url": config.seo.siteUrl,
+      "foundingDate": String(config.business.founded),
+      "areaServed": config.locations,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": config.business.address.city,
+        "addressRegion": config.business.address.state,
+        "addressCountry": "US"
+      },
+    })} />
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 sticky top-0 bg-white/95 backdrop-blur z-50">
+      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        <a href="/" class="flex items-center">
+          <span class="text-xl font-extrabold tracking-tight text-gray-900">DUNN <span class="text-red-600">DEVELOPMENT</span></span>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+          <a href="/#services" class="hover:text-gray-900 transition-colors">Services</a>
+          <a href="/#automation" class="hover:text-red-600 transition-colors">Transparency</a>
+          <a href="/portfolio" class="hover:text-gray-900 transition-colors">Portfolio</a>
+          <a href="/#licenses" class="hover:text-gray-900 transition-colors">Licenses</a>
+          <a href="/subcontractor" class="hover:text-gray-900 transition-colors">Subcontractors</a>
+          <a href="/news" class="hover:text-gray-900 transition-colors">News</a>
+          <a href="/#contact"
+            class="bg-red-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+            Start a Project
+          </a>
+        </nav>
+
+        <!-- Mobile CTA -->
+        <a href={`tel:${config.business.phone}`}
+          class="md:hidden text-red-600 font-semibold text-sm border border-red-200 px-3 py-1.5 rounded-lg">
+          {config.business.phone}
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-10">
+          <div class="md:col-span-2">
+            <div class="text-xl font-extrabold tracking-tight text-white mb-4">DUNN <span class="text-red-500">DEVELOPMENT</span></div>
+            <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+              {config.business.description}
+            </p>
+            <div class="mt-6 space-y-1 text-sm">
+              <a href={`tel:${config.business.phone}`}
+                class="block text-gray-300 hover:text-red-400 transition-colors">
+                {config.business.phone}
+              </a>
+              <a href={`mailto:${config.business.email}`}
+                class="block text-gray-300 hover:text-red-400 transition-colors">
+                {config.business.email}
+              </a>
+              <div class="text-gray-400">{config.business.address.street}</div>
+              <div class="text-gray-400">{config.business.address.city}, {config.business.address.state} {config.business.address.zip}</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-white font-semibold mb-4">Services</div>
+            <div class="space-y-2 text-sm">
+              {config.services.map((s) => (
+                <div class="text-gray-400">{s.name}</div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div class="text-white font-semibold mb-4">Licenses</div>
+            <div class="space-y-3 text-sm">
+              <a href={config.business.licenses.florida.verifyUrl}
+                target="_blank" rel="noopener"
+                class="block text-gray-400 hover:text-red-400 transition-colors">
+                Florida Licensed GC →
+              </a>
+              <a href={config.business.licenses.louisiana.verifyUrl}
+                target="_blank" rel="noopener"
+                class="block text-gray-400 hover:text-red-400 transition-colors">
+                Louisiana Licensed GC →
+              </a>
+            </div>
+            <div class="mt-6">
+              <div class="text-white font-semibold mb-4">Markets Served</div>
+              <div class="space-y-1 text-sm text-gray-400">
+                {config.locations.map((loc) => <div>{loc}</div>)}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust badges + social -->
+        <div class="border-t border-gray-800 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+
+          <!-- OSHA + BBB badges -->
+          <div class="flex items-center gap-4">
+            {config.credentials.map((c) => (
+              <a href={c.url} target="_blank" rel="noopener"
+                class="flex flex-col items-center border border-gray-700 rounded-lg px-4 py-2 hover:border-gray-500 transition-colors text-center">
+                <span class="text-white font-extrabold text-sm tracking-widest">{c.label}</span>
+                <span class="text-gray-500 text-xs">{c.sublabel}</span>
+              </a>
+            ))}
+          </div>
+
+          <!-- Social links -->
+          <div class="flex items-center gap-4">
+            <a href={config.social.linkedin} target="_blank" rel="noopener"
+              class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href={config.social.facebook} target="_blank" rel="noopener"
+              class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href={config.social.googleMaps} target="_blank" rel="noopener"
+              class="text-gray-400 hover:text-white transition-colors" aria-label="Google Maps">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </a>
+          </div>
+
+          <span class="text-xs text-gray-500">&copy; {new Date().getFullYear()} {config.business.name}. All rights reserved.</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ── COOKIE CONSENT ──────────────────────────────────────── -->
+    <div
+      id="cookie-banner"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-2xl bg-white border border-gray-200 rounded-2xl shadow-2xl p-6 z-[100] transition-all duration-300"
+      style="display:none"
+    >
+      <div class="flex flex-col sm:flex-row sm:items-center gap-5">
+        <div class="flex-1">
+          <p class="text-gray-900 font-semibold text-sm mb-1">This site uses cookies</p>
+          <p class="text-gray-500 text-xs leading-relaxed">
+            We use essential cookies to keep the site running. No tracking or advertising cookies are used without your consent.
+          </p>
+        </div>
+        <div class="flex gap-3 shrink-0">
+          <button
+            id="cookie-reject"
+            class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors"
+          >
+            Reject All
+          </button>
+          <button
+            id="cookie-accept"
+            class="px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition-colors"
+          >
+            Allow Only Necessary
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const banner = document.getElementById('cookie-banner');
+      const STORAGE_KEY = 'dd_cookie_consent';
+
+      if (!localStorage.getItem(STORAGE_KEY)) {
+        setTimeout(() => {
+          banner.style.display = 'block';
+        }, 800);
+      }
+
+      document.getElementById('cookie-accept').addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEY, 'necessary');
+        banner.style.opacity = '0';
+        setTimeout(() => banner.style.display = 'none', 300);
+      });
+
+      document.getElementById('cookie-reject').addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEY, 'rejected');
+        banner.style.opacity = '0';
+        setTimeout(() => banner.style.display = 'none', 300);
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+type ImageMod = { default: { src: string; width: number; height: number; format: string } };
+const raw = import.meta.glob<ImageMod>('../portfolio/*.webp', { eager: true });
+
+function imgs(prefixes: string[]) {
+  return Object.entries(raw)
+    .filter(([p]) => prefixes.some(pfx => p.includes(`/dunn-development-${pfx}-`)))
+    .map(([p, m]) => ({
+      src: m.default.src,
+      alt: p.split('/').pop()!
+        .replace('.webp', '')
+        .replace(/^dunn-development-/, '')
+        .replace(/-/g, ' '),
+    }));
+}
+
+const cats = [
+  { id: 'airport',    name: 'Airport',                images: imgs(['airport'])                  },
+  { id: 'commercial', name: 'Commercial & Office',     images: imgs(['commercial'])               },
+  { id: 'industrial', name: 'Industrial / Biomedical', images: imgs(['biomedical', 'industrial']) },
+  { id: 'luxury',     name: 'Luxury Homes',            images: imgs(['luxury'])                   },
+  { id: 'civil',      name: 'Civil & Municipal',       images: imgs(['civil'])                    },
+];
+---
+
+<Layout
+  title="Portfolio | Dunn Development"
+  description="Project portfolio for Dunn Development: airport construction, commercial office buildouts, industrial cleanrooms, luxury homes, and civil infrastructure across South Florida."
+>
+
+  <!-- ── CATEGORY NAV ─────────────────────────────────────────── -->
+  <div class="cat-nav sticky top-[57px] z-40 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4">
+      <nav class="flex overflow-x-auto scrollbar-hide">
+        {cats.map(cat => (
+          <a
+            href={`#${cat.id}`}
+            data-nav={cat.id}
+            class="cat-nav-link flex-shrink-0 px-5 py-4 text-sm font-semibold text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-red-500 transition-all whitespace-nowrap"
+          >
+            {cat.name}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+
+  <!-- ── SLIDERS ──────────────────────────────────────────────── -->
+  {cats.map((cat, catIdx) => (
+    <section
+      id={cat.id}
+      class="relative overflow-hidden bg-gray-900"
+      style="height: calc(100vh - 57px - 49px);"
+      data-slider
+    >
+
+      <!-- Slides -->
+      <div class="slide-container absolute inset-0">
+        {cat.images.map((img, i) => (
+          <div
+            class={`slide absolute inset-0 transition-opacity duration-500 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+            aria-hidden={i !== 0}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="w-full h-full object-cover"
+              loading={catIdx === 0 && i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Gradient overlays: dark at edges/bottom for readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-black/50 z-10 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 z-10 pointer-events-none"></div>
+
+      <!-- Category label — top left -->
+      <div class="absolute top-7 left-8 z-20">
+        <p class="text-red-400 text-xs font-bold uppercase tracking-widest mb-1.5">Portfolio</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg leading-tight">
+          {cat.name}
+        </h2>
+      </div>
+
+      <!-- Image counter — top right -->
+      <div class="absolute top-8 right-8 z-20 bg-black/30 backdrop-blur-sm text-white/80 text-sm font-mono tabular-nums px-3 py-1.5 rounded-full">
+        <span class="slide-current">1</span>&thinsp;/&thinsp;<span>{cat.images.length}</span>
+      </div>
+
+      <!-- Prev arrow -->
+      <button
+        class="prev-btn absolute left-4 top-1/2 -translate-y-[calc(50%+2rem)] z-20 w-11 h-11 bg-black/30 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors border border-white/20 focus:outline-none focus:ring-2 focus:ring-red-500"
+        aria-label="Previous image"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- Next arrow -->
+      <button
+        class="next-btn absolute right-4 top-1/2 -translate-y-[calc(50%+2rem)] z-20 w-11 h-11 bg-black/30 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors border border-white/20 focus:outline-none focus:ring-2 focus:ring-red-500"
+        aria-label="Next image"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Thumbnail strip — bottom -->
+      <div class="absolute bottom-0 left-0 right-0 z-20 px-6 pb-5 pt-10 bg-gradient-to-t from-black/70 to-transparent">
+        <div class="thumb-strip flex gap-2 overflow-x-auto pb-1">
+          {cat.images.map((img, i) => (
+            <button
+              class={`thumb flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                i === 0
+                  ? 'border-red-500 opacity-100 scale-105'
+                  : 'border-transparent opacity-40 hover:opacity-70 hover:border-white/50'
+              }`}
+              style="width: 72px; height: 52px;"
+              data-index={i}
+              aria-label={`View image ${i + 1} of ${cat.images.length}`}
+            >
+              <img
+                src={img.src}
+                alt=""
+                class="w-full h-full object-cover"
+                loading="lazy"
+                aria-hidden="true"
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+
+    </section>
+  ))}
+
+</Layout>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .thumb-strip::-webkit-scrollbar { display: none; }
+  .thumb-strip { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<script>
+  // ── SLIDERS ────────────────────────────────────────────────────
+  document.querySelectorAll<HTMLElement>('[data-slider]').forEach(section => {
+    const slides  = section.querySelectorAll<HTMLElement>('.slide');
+    const thumbs  = section.querySelectorAll<HTMLElement>('.thumb');
+    const counter = section.querySelector<HTMLElement>('.slide-current');
+    let current   = 0;
+
+    function goTo(raw: number) {
+      const next = ((raw % slides.length) + slides.length) % slides.length;
+      if (next === current) return;
+
+      // Deactivate current slide
+      slides[current].classList.replace('opacity-100', 'opacity-0');
+      slides[current].setAttribute('aria-hidden', 'true');
+      thumbs[current].classList.remove('border-red-500', 'opacity-100', 'scale-105');
+      thumbs[current].classList.add('border-transparent', 'opacity-40');
+
+      current = next;
+
+      // Activate new slide
+      slides[current].classList.replace('opacity-0', 'opacity-100');
+      slides[current].setAttribute('aria-hidden', 'false');
+      thumbs[current].classList.remove('border-transparent', 'opacity-40');
+      thumbs[current].classList.add('border-red-500', 'opacity-100', 'scale-105');
+
+      if (counter) counter.textContent = String(current + 1);
+
+      // Scroll active thumb into view
+      thumbs[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    section.querySelector('.prev-btn')?.addEventListener('click', () => goTo(current - 1));
+    section.querySelector('.next-btn')?.addEventListener('click', () => goTo(current + 1));
+
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => goTo(i));
+    });
+  });
+
+  // ── CATEGORY NAV HIGHLIGHT ON SCROLL ─────────────────────────
+  const navLinks = document.querySelectorAll<HTMLElement>('.cat-nav-link');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          const active = link.dataset.nav === id;
+          link.classList.toggle('border-red-500', active);
+          link.classList.toggle('text-gray-900',  active);
+          link.classList.toggle('border-transparent', !active);
+          link.classList.toggle('text-gray-500', !active);
+        });
+        // Scroll active nav item into view
+        const activeLink = document.querySelector<HTMLElement>(`[data-nav="${id}"]`);
+        activeLink?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  document.querySelectorAll('[data-slider]').forEach(s => observer.observe(s));
+</script>
