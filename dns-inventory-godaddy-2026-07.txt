@@ -1,0 +1,129 @@
+DUNN DEVELOPMENT — GoDaddy DNS Inventory (canonical pre-migration snapshot)
+Domain: dunndevelopment.net
+Captured: 2026-07-20  |  Source: GoDaddy DNS Records UI (36 records) + live-DNS verification
+Authoritative NS at capture: ns31.domaincontrol.com / ns32.domaincontrol.com (GoDaddy)
+
+NOTE ON ROLLBACK FIDELITY: the base64 DKIM/DMARC blobs below are transcribed from the
+GoDaddy UI and cross-checked against live DNS where possible. For a byte-perfect rollback
+reference, ALSO download GoDaddy's native "Export Zone File" (BIND format) and keep it beside
+this file. This file is the planning + decision inventory; the BIND export is the exact restore point.
+
+ACTION LEGEND:
+  CARRY   = copy to Route53 exactly as-is (function must not change)
+  REPLACE = record changes as part of Linode->CloudFront site cutover
+  DECIDE  = keep only if the service is still in use (see open questions)
+  FIX     = currently broken in GoDaddy; do NOT replicate the breakage
+  DROP    = do not migrate (VPS-tied, retired, or GoDaddy-proprietary)
+  AUTO    = Route53 creates its own; never copy
+
+============================================================================
+DECISION — 2026-07-20 (Chris unavailable; worst-case default applied)
+============================================================================
+Principle: the nameserver flip must be BEHAVIOR-NEUTRAL for everything except the
+website root + www. When we cannot confirm whether a record is load-bearing, we COPY it.
+Cost of carrying an unused record = ~0. Cost of dropping a used mail record = SILENT
+deliverability loss. The asymmetry decides every ambiguous case in favor of copying.
+
+Operative plan without Chris:
+  - COPY verbatim: all 12 M365 records + all 3 third-party senders (SES/Brevo/Resend)
+    + both verification TXTs + the single working _dmarc (p=none).
+  - DO NOT TOUCH mail auth: root SPF stays "...outlook.com -all" (no new includes);
+    DMARC stays a single p=none (do NOT raise to quarantine/reject).
+  - REPLACE only: root A/AAAA + www -> CloudFront, on our schedule (after cert+alias ready).
+  - CARRY-THROUGH the VPS subdomains (dev, time, dev.time) at their current Linode IPs so
+    the flip changes nothing for them; they retire naturally at VPS shutdown (a later,
+    separate, IRREVERSIBLE step). Prune then, with eyes open.
+  - DO NOT CREATE: NS, SOA (Route53 makes its own), _domainconnect (GoDaddy-only), and the
+    two double-suffix-broken records (already dead — recreating them is pointless or harmful).
+  - DROP ftp + autodiscover.admin: they CNAME to root, so a literal copy would wrongly follow
+    root to CloudFront; both are VPS/legacy with no known M365 role. Reversible 2-min re-add.
+Why this is safe without Chris: the DNS flip is REVERSIBLE (flip NS back to GoDaddy). The VPS
+shutdown is NOT. So Chris's absence argues for a LONGER soak before shutdown, not for delaying
+the migration. Migrate now; defer only the irreversible decommission.
+
+============================================================================
+M365 — EMAIL, TEAMS, INTUNE  (CARRY EXACTLY — highest priority)
+============================================================================
+MX     @                            dunndevelopment-net.mail.protection.outlook.com   (Pri 0)   [inbound mail]
+TXT    @                            v=spf1 include:spf.protection.outlook.com -all               [root SPF — M365 ONLY, hard -all]
+TXT    @                            MS=ms34332929                                                [M365 domain verification]
+CNAME  autodiscover                 autodiscover.outlook.com                                     [Outlook auto-config]
+CNAME  selector1._domainkey         selector1-dunndevelopment-net._domainkey.dunndevelopment.onmicrosoft.com   [M365 DKIM]
+CNAME  selector2._domainkey         selector2-dunndevelopment-net._domainkey.dunndevelopment.onmicrosoft.com   [M365 DKIM]
+CNAME  sip                          sipdir.online.lync.com                                       [Teams/Skype]
+CNAME  lyncdiscover                 webdir.online.lync.com                                       [Teams/Skype]
+SRV    _sip._tls.@                  100 1 443 sipdir.online.lync.com                             [Teams/Skype]
+SRV    _sipfederationtls._tcp.@     100 1 5061 sipfed.online.lync.com                            [Teams federation]
+CNAME  enterpriseenrollment         enterpriseenrollment.manage.microsoft.com                    [Intune MDM enrollment]
+CNAME  enterpriseregistration       enterpriseregistration.windows.net                           [Intune MDM registration]
+
+============================================================================
+WEBSITE  (REPLACE — Linode VPS -> S3/CloudFront)
+============================================================================
+A      @                            45.79.44.192                     -> REPLACE with CloudFront alias (A)
+AAAA   @                            2600:3c00::f03c:92ff:feb8:1928   -> REPLACE with CloudFront alias (AAAA) or drop
+CNAME  www                          dunndevelopment.net (root)       -> REPLACE with CloudFront alias for www
+
+============================================================================
+THIRD-PARTY EMAIL SENDERS  (DECIDE — keep ONLY if service still in use)
+============================================================================
+-- Amazon SES (uses 'send' subdomain as custom MAIL FROM; self-contained) --
+MX     send                         feedback-smtp.us-east-1.amazonses.com   (Pri 10)   [SES bounce/complaint feedback]
+TXT    send                         v=spf1 include:amazonses.com ~all                  [SES SPF, scoped to send.* subdomain]
+
+-- Brevo / Sendinblue --
+TXT    @                            Sendinblue-code:195df3c14ba17e4dd2906ee9decd8092   [Brevo domain verification]
+TXT    dd1._domainkey               v=DKIM1;t=s;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDnHMyFKAzUwLv7uXgN1JhhrrMinNTcwZ9irvYBDcxrOWx4A2UqsRS+RRrkw6YSdTp9Sr0+OEwPCCgUxlySlpYYzJBhB8bCZCvbuWy1I8yvFCYCgWulWrKTucxWc9ehzBJ0UvzZz7y06+knbnHIbqQd7jQL81G1kqqsArXUbqtUCwIDAQAB   [Brevo DKIM]
+
+-- Resend --
+TXT    resend._domainkey            p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkNILZh2HiJEhIeE7rqEg/iIJIquq0R95di3O+J3EopqLsLJZpVBXbMZvnUI2RcJL5IUaNR4fbFgISdK+tu3qDl5bWhfIDp0uFwTm+KFrAk5ya58g2aWZ3XnF5w/MMSQ8I2F92gNg1tBBhPoyEUGf5joOuO9Y3b0cWoksYggajSQIDAQAB   [Resend DKIM]
+
+============================================================================
+DMARC
+============================================================================
+TXT    _dmarc                       v=DMARC1; p=none;                [WORKING record — minimal, monitor-only, no reporting addr]
+TXT    _dmarc.dunndevelopment.net   v=DMARC1; p=none; sp=none; rua=mailto:dmarc@mailinblue.com!10m; ruf=mailto:dmarc@mailinblue.com!10m; rf=afrf; pct=100; ri=86400
+                                     ^^ FIX/BROKEN: GoDaddy double-suffix bug. Name was entered with the domain
+                                        appended, so this is actually published at
+                                        _dmarc.dunndevelopment.net.DUNNDEVELOPMENT.NET  (verified via live DNS).
+                                        It is orphaned — no resolver ever sees it. Do NOT replicate as-is.
+
+============================================================================
+FIX / BROKEN  (GoDaddy double-suffix bug — verified non-functional via live DNS)
+============================================================================
+TXT    mail._domainkey.dunndevelopment.net   k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeMVIzrCa3T14JsNY0IRv5/2V1/v2itlviLQBwXsa7shBD6TrBkswsFUToPyMRWC9tbR/5ey0nRBH0ZVxp+lsmTxid2Y2z+FApQ6ra2VsXfbJP3HE6wAO0YTVEJt1TmeczhEd2Jiz/fcabIISgXEdSpTYJhb0ct0VJRxcg4c8c7wIDAQAB
+                                     ^^ Published at mail._domainkey.dunndevelopment.net.DUNNDEVELOPMENT.NET (verified).
+                                        The single/correct name returns NXDOMAIN. Likely a legacy SES/VPS BYODKIM key.
+                                        Non-functional today. Do NOT replicate the doubled name.
+
+============================================================================
+DROP  (VPS-tied, retired, or GoDaddy-proprietary — do NOT migrate; confirm 'time/dev' with Chris)
+============================================================================
+A      dev                          66.228.53.90                     [second Linode box — purpose TBD]
+AAAA   dev                          2600:3c00::f03c:93ff:fe99:ec6c   [second Linode box, IPv6]
+A      time                         45.79.44.192                     [likely retired TimeTrax subdomain]
+AAAA   time                         2600:3c00::f03c:92ff:feb8:1928   [likely retired TimeTrax]
+A      dev.time                     45.79.44.192                     [likely retired TimeTrax]
+AAAA   dev.time                     2600:3c00::f03c:92ff:feb8:1928   [likely retired TimeTrax]
+CNAME  ftp                          dunndevelopment.net              [FTP to the VPS — dies with VPS]
+CNAME  autodiscover.admin           dunndevelopment.net              [odd leftover — no known use]
+CNAME  _domainconnect               _domainconnect.gd.domaincontrol.com   [GoDaddy Domain Connect — useless off GoDaddy]
+TXT    @                            google-site-verification=99VssRcivPdvbtD9gy_IqrybquUhMyCPW6i9ULFIrPU   [Google verification leftover — drop unless a Google service still relies on it]
+
+============================================================================
+AUTO  (Route53 generates its own; never copy)
+============================================================================
+NS     @                            ns31.domaincontrol.com / ns32.domaincontrol.com   [replaced by Route53's 4 assigned NS]
+SOA    @                            ns31.domaincontrol.com ...                         [Route53 writes its own SOA]
+
+============================================================================
+OPEN QUESTIONS (block finalizing the canonical Route53 list)
+============================================================================
+1. Which of SES / Brevo / Resend still actively send mail, and as which domain?
+   - SES sends via send.dunndevelopment.net (self-contained SPF+MX) — keep only if SES still used.
+   - Brevo + Resend DKIM are on the root domain, but root SPF is "-all" and does NOT include them,
+     so any root-domain send from them fails SPF today (survives only under DMARC p=none via DKIM alignment).
+2. 'time' / 'dev.time' — confirm these are the retired TimeTrax subdomains (STATUS.md) -> DROP.
+3. 'dev' (66.228.53.90) — what is the second Linode box, and does it die with the VPS?
+4. Fix-or-drop decision for the two double-suffixed DKIM/DMARC records (both non-functional now).
+5. Keep or drop the google-site-verification and Sendinblue-code verification TXTs.

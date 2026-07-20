@@ -1,0 +1,250 @@
+{
+  "Comment": "Dunn Development Route53 batch 1/2: M365 mail/Teams/Intune + SES/Brevo/Resend senders + carry-through VPS subdomains (UPSERT). Excludes NS/SOA, _domainconnect, and 2 double-suffix-broken records. Website A/AAAA/www = batch 2.",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dunndevelopment.net.",
+        "Type": "TXT",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "\"google-site-verification=99VssRcivPdvbtD9gy_IqrybquUhMyCPW6i9ULFIrPU\"" },
+          { "Value": "\"v=spf1 include:spf.protection.outlook.com -all\"" },
+          { "Value": "\"MS=ms34332929\"" },
+          { "Value": "\"Sendinblue-code:195df3c14ba17e4dd2906ee9decd8092\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_dmarc.dunndevelopment.net.",
+        "Type": "TXT",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "\"v=DMARC1; p=none;\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dd1._domainkey.dunndevelopment.net.",
+        "Type": "TXT",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "\"v=DKIM1;t=s;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDnHMyFKAzUwLv7uXgN1JhhrrMinNTcwZ9irvYBDcxrOWx4A2UqsRS+RRrkw6YSdTp9Sr0+OEwPCCgUxIySlpYYzJBhB8bCZCvbuWy1I8yvFCYCgWuIWrKTucxWc9ehzBJ0UvzZz7y06+knbnHIbqQd7jQL81G1kqqsArXUbqtUCwIDAQAB\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "resend._domainkey.dunndevelopment.net.",
+        "Type": "TXT",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "\"p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkNlLZh2HiJEhIeE7rqEg/ilJIquq0R95di3O+J3EopqLsLJZpVBXbMZvnUI2RcJL5IUaNR4fbFgISdK+tu3qDl5bWhfIDp0uFwTm+KFrAk5ya58g2aWZ3XnF5w/MMSQ8I2F92gNg1tBBhPoyEUGf5joOuO9Y3b0cWoksYggajSQIDAQAB\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "send.dunndevelopment.net.",
+        "Type": "TXT",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "\"v=spf1 include:amazonses.com ~all\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "send.dunndevelopment.net.",
+        "Type": "MX",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "10 feedback-smtp.us-east-1.amazonses.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dunndevelopment.net.",
+        "Type": "MX",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "0 dunndevelopment-net.mail.protection.outlook.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "autodiscover.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "autodiscover.outlook.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "selector1._domainkey.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "selector1-dunndevelopment-net._domainkey.dunndevelopment.onmicrosoft.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "selector2._domainkey.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "selector2-dunndevelopment-net._domainkey.dunndevelopment.onmicrosoft.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "sip.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "sipdir.online.lync.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "lyncdiscover.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "webdir.online.lync.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "enterpriseenrollment.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "enterpriseenrollment.manage.microsoft.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "enterpriseregistration.dunndevelopment.net.",
+        "Type": "CNAME",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "enterpriseregistration.windows.net." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_sip._tls.dunndevelopment.net.",
+        "Type": "SRV",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "100 1 443 sipdir.online.lync.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_sipfederationtls._tcp.dunndevelopment.net.",
+        "Type": "SRV",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "100 1 5061 sipfed.online.lync.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dev.dunndevelopment.net.",
+        "Type": "A",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "66.228.53.90" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dev.dunndevelopment.net.",
+        "Type": "AAAA",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "2600:3c00::f03c:93ff:fe99:ec6c" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "time.dunndevelopment.net.",
+        "Type": "A",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "45.79.44.192" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "time.dunndevelopment.net.",
+        "Type": "AAAA",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "2600:3c00::f03c:92ff:feb8:1928" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dev.time.dunndevelopment.net.",
+        "Type": "A",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "45.79.44.192" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "dev.time.dunndevelopment.net.",
+        "Type": "AAAA",
+        "TTL": 3600,
+        "ResourceRecords": [
+          { "Value": "2600:3c00::f03c:92ff:feb8:1928" }
+        ]
+      }
+    }
+  ]
+}
